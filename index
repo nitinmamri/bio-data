@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Resume Builder</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+    padding:20px;
+    min-height:100vh;
+}
+.form-container{
+    width:900px;
+    max-width:100%;
+    margin:auto;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(104,173,238,.95);
+    box-shadow:0 10px 35px rgba(0,0,0,.3);
+}
+.form-container h2{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:15px;
+}
+h3{
+    margin-top:18px;
+    margin-bottom:6px;
+    font-size:20px;
+}
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:none;
+    border-radius:8px;
+    background:#cae2fc;
+    font-size:16px;
+}
+textarea{
+    height:90px;
+    resize:none;
+}
+button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.add-btn{background:#16a34a;color:white;}
+#generateBtn{background:#1d4ed8;color:white;}
+#printBtn{background:#111827;color:white;}
+.multi-select-box{
+    background:white;
+    padding:10px;
+    border-radius:8px;
+    margin-top:8px;
+}
+.multi-select-box label{
+    display:block;
+    margin-top:6px;
+    font-size:16px;
+}
+.multi-select-box input{
+    width:auto;
+    margin-right:6px;
+}
+.saved-box{
+    background:white;
+    padding:8px 10px;
+    margin-top:8px;
+    border-left:4px solid #2563eb;
+    position:relative;
+    font-size:16px;
+}
+.delete-btn{
+    position:absolute;
+    right:8px;
+    top:8px;
+    background:red;
+    color:white;
+    border:none;
+    padding:2px 8px;
+    width:auto;
+    font-size:12px;
+}
+.resume{
+    width:210mm;
+    min-height:297mm;
+    background:white;
+    margin:20px auto;
+    padding:10mm;
+    border:4px double #000;
+    display:none;
+}
+.cv-title{
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+    text-decoration:underline;
+    margin-bottom:8px;
+}
+.profile{
+    width:110px;
+    height:130px;
+    border:1px solid #000;
+    object-fit:cover;
+    float:right;
+    margin-left:10px;
+    display:none;
+}
+.header-info{
+    line-height:24px;
+    font-size:16px;
+    margin-bottom:8px;
+}
+.header-info p{
+    margin-bottom:2px;
+}
+.section{
+    margin-top:6px;
+}
+.title{
+    background:#b0b0b0;
+    padding:4px 6px;
+    font-size:16px;
+    font-weight:bold;
+    border-bottom:1px solid #000;
+    text-transform:uppercase;
+    margin-top:8px;
+}
+.section p,
+.section li{
+    font-size:15px;
+    line-height:22px;
+}
+.section ul{
+    padding-left:20px;
+    margin-top:3px;
+}
+.section ul li{
+    list-style-type:"❖ ";
+}
+.personal-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:3px;
+}
+.personal-table td{
+    padding:3px 3px;
+    font-size:15px;
+    vertical-align:top;
+}
+.signature{
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+    font-weight:bold;
+    font-size:15px;
+}
+hr{
+    border:none;
+    border-top:1px solid #000;
+    margin:4px 0 4px;
+}
+.name-bold,
+.signature-bold{
+    font-weight:600;
+}
+@page{
+    size:A4;
+    margin:5mm;
+}
+@media print{
+    body{
+        background:white;
+        padding:0;
+    }
+    .form-container{
+        display:none !important;
+    }
+    #printBtn,#generateBtn{
+        display:none !important;
+    }
+    .resume{
+        display:block !important;
+        width:210mm;
+        min-height:297mm;
+        margin:0 auto;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Professional Resume Builder</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="father" placeholder="Father Name">
+    <input type="text" id="mother" placeholder="Mother Name">
+    <input type="date" id="dob">
+
+    <select id="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+    </select>
+
+    <input type="text" id="phone" placeholder="Phone Number">
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="text" id="address" placeholder="Address">
+
+    <h3>Languages</h3>
+    <div class="multi-select-box">
+        <label><input type="checkbox" class="languageCheck" value="Hindi"> Hindi</label>
+        <label><input type="checkbox" class="languageCheck" value="English"> English</label>
+        <label><input type="checkbox" class="languageCheck" value="Urdu"> Urdu</label>
+        <label><input type="checkbox" class="languageCheck" value="Punjabi"> Punjabi</label>
+        <label><input type="checkbox" class="languageCheck" value="Gujarati"> Gujarati</label>
+        <label><input type="checkbox" class="languageCheck" value="Marathi"> Marathi</label>
+    </div>
+
+    <h3>Career Objective</h3>
+    <select id="careerSelect">
+        <option value="">Select Career Objective</option>
+        <option>Seeking a responsible career opportunity to fully utilize my training and skills while making a significant contribution to the success of the company.</option>
+        <option>To work in a professional environment that encourages continuous learning, innovation, and career growth.</option>
+        <option>A highly motivated individual seeking a position where I can contribute effectively and grow professionally through dedication and hard work.</option>
+        <option value="other">Other</option>
+    </select>
+    <textarea id="customCareer" placeholder="Write Your Career Objective" style="display:none;"></textarea>
+
+    <h3>Education</h3>
+    <select id="eduType">
+        <option value="">Select Education</option>
+        <option value="10th">10th</option>
+        <option value="12th">12th</option>
+        <option value="graduation">Graduation / Other</option>
+    </select>
+    <div id="educationFields"></div>
+
+    <button type="button" class="add-btn" onclick="saveEducation()">+ Add Education</button>
+    <div id="savedEducation"></div>
+
+    <h3>Other Qualification</h3>
+    <select id="otherCourse">
+        <option value="">Select Course</option>
+        <option>CCC</option>
+        <option>ADCA</option>
+        <option>ITI</option>
+        <option>Polytechnic</option>
+        <option>DCA</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" id="customCourse" placeholder="Write Course Name" style="display:none;">
+    <input type="text" id="otherInstitute" placeholder="Institute Name">
+    <input type="number" id="otherYear" placeholder="Passing Year">
+    <button type="button" class="add-btn" onclick="saveOtherQualification()">+ Add Qualification</button>
+    <div id="savedOther"></div>
+
+    <h3>Skills</h3>
+    <select id="skillSelect">
+        <option value="">Select Skill</option>
+        <option>Computer Knowledge</option>
+        <option>MS Office</option>
+        <option>Communication Skill</option>
+        <option>Typing</option>
+        <option>Leadership</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" id="customSkill" placeholder="Write Skill" style="display:none;">
+    <button type="button" class="add-btn" onclick="saveSkill()">+ Add Skill</button>
+    <div id="savedSkills"></div>
+
+    <h3>Experience</h3>
+    <select id="experienceSelect">
+        <option value="">Select Experience</option>
+        <option>Fresher</option>
+        <option>1 Year Experience</option>
+        <option>2 Year Experience</option>
+        <option>3 Year Experience</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" id="customExperience" placeholder="Write Experience" style="display:none;">
+    <button type="button" class="add-btn" onclick="saveExperience()">+ Add Experience</button>
+    <div id="savedExperience"></div>
+
+    <h3>Declaration</h3>
+    <select id="declarationSelect">
+        <option value="">Select Declaration</option>
+        <option>I hereby declare that all the information provided above is true and correct to the best of my knowledge and belief.</option>
+        <option>I solemnly declare that the details furnished by me in this resume are true and accurate to the best of my knowledge.</option>
+        <option>I hereby confirm that the above information is genuine and I take full responsibility for its correctness.</option>
+        <option value="other">Other</option>
+    </select>
+    <textarea id="customDeclaration" placeholder="Write Your Own Declaration" style="display:none;"></textarea>
+
+    <input type="file" id="image" accept="image/*">
+
+    <button id="generateBtn" onclick="generateResume()">Generate Resume</button>
+    <button id="printBtn" onclick="printResume()" style="display:none;">Print Resume</button>
+</div>
+
+<div class="resume" id="resume">
+    <img id="showImage" class="profile" alt="profile">
+
+    <div class="cv-title">Curriculum Vitae</div>
+
+    <div class="header-info">
+        <p><b>Name- </b><span id="showName" class="name-bold"></span></p>
+        <p><b>Address – </b><span id="showAddress"></span></p>
+        <p><b>Mob. No.- </b><span id="showPhone"></span></p>
+        <p><b>Email Id- </b><span id="showEmail"></span></p>
+    </div>
+
+    <hr>
+
+    <div class="section" id="careerSection">
+        <div class="title">Career Objective</div>
+        <p id="showCareer"></p>
+    </div>
+
+    <div class="section" id="educationSection">
+        <div class="title">Educational Qualifications</div>
+        <ul id="showEducation"></ul>
+    </div>
+
+    <div class="section" id="otherSection">
+        <div class="title">Other Qualifications</div>
+        <ul id="showOther"></ul>
+    </div>
+
+    <div class="section" id="experienceSection">
+        <div class="title">Experience</div>
+        <ul id="showExperience"></ul>
+    </div>
+
+    <div class="section" id="skillSection">
+        <div class="title">Skill</div>
+        <ul id="showSkills"></ul>
+    </div>
+
+    <div class="section">
+        <div class="title">Personal Details</div>
+        <table class="personal-table">
+            <tr><td><b>Father’s Name</b></td><td>:</td><td id="showFather"></td></tr>
+            <tr><td><b>Mother’s Name</b></td><td>:</td><td id="showMother"></td></tr>
+            <tr><td><b>Date of Birth</b></td><td>:</td><td id="showDob"></td></tr>
+            <tr><td><b>Gender</b></td><td>:</td><td id="showGender"></td></tr>
+            <tr><td><b>Languages Known</b></td><td>:</td><td id="showLanguageText"></td></tr>
+        </table>
+    </div>
+
+    <div class="section" id="declarationSection">
+        <div class="title">Declaration</div>
+        <p id="showDeclaration"></p>
+
+        <div class="signature">
+            <div>Date : __________</div>
+            <div><span id="showSignature" class="signature-bold"></span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const nameInput = document.getElementById('name');
+const fatherInput = document.getElementById('father');
+const motherInput = document.getElementById('mother');
+const dobInput = document.getElementById('dob');
+const genderInput = document.getElementById('gender');
+const phoneInput = document.getElementById('phone');
+const emailInput = document.getElementById('email');
+const addressInput = document.getElementById('address');
+const careerSelect = document.getElementById('careerSelect');
+const customCareer = document.getElementById('customCareer');
+const skillSelect = document.getElementById('skillSelect');
+const customSkill = document.getElementById('customSkill');
+const experienceSelect = document.getElementById('experienceSelect');
+const customExperience = document.getElementById('customExperience');
+const otherCourse = document.getElementById('otherCourse');
+const customCourse = document.getElementById('customCourse');
+const declarationSelect = document.getElementById('declarationSelect');
+const customDeclaration = document.getElementById('customDeclaration');
+const eduType = document.getElementById('eduType');
+const educationFields = document.getElementById('educationFields');
+const savedEducation = document.getElementById('savedEducation');
+const savedOther = document.getElementById('savedOther');
+const otherInstitute = document.getElementById('otherInstitute');
+const otherYear = document.getElementById('otherYear');
+const savedSkills = document.getElementById('savedSkills');
+const savedExperience = document.getElementById('savedExperience');
+const resume = document.getElementById('resume');
+const printBtn = document.getElementById('printBtn');
+const imageInput = document.getElementById('image');
+
+const showName = document.getElementById('showName');
+const showFather = document.getElementById('showFather');
+const showMother = document.getElementById('showMother');
+const showDob = document.getElementById('showDob');
+const showGender = document.getElementById('showGender');
+const showPhone = document.getElementById('showPhone');
+const showEmail = document.getElementById('showEmail');
+const showAddress = document.getElementById('showAddress');
+const showCareer = document.getElementById('showCareer');
+const showDeclaration = document.getElementById('showDeclaration');
+const showSignature = document.getElementById('showSignature');
+const showEducation = document.getElementById('showEducation');
+const showOther = document.getElementById('showOther');
+const showExperience = document.getElementById('showExperience');
+const showSkills = document.getElementById('showSkills');
+const showLanguageText = document.getElementById('showLanguageText');
+const showImage = document.getElementById('showImage');
+
+careerSelect.onchange = function(){
+    customCareer.style.display = this.value=="other" ? "block" : "none";
+};
+skillSelect.onchange = function(){
+    customSkill.style.display = this.value=="other" ? "block" : "none";
+};
+experienceSelect.onchange = function(){
+    customExperience.style.display = this.value=="other" ? "block" : "none";
+};
+otherCourse.onchange = function(){
+    customCourse.style.display = this.value=="other" ? "block" : "none";
+};
+declarationSelect.onchange = function(){
+    customDeclaration.style.display = this.value=="other" ? "block" : "none";
+};
+
+eduType.onchange = function(){
+    let html = "";
+    if(this.value=="10th"){
+        html = `
+        <select id="board10">
+            <option value="">Select Board</option>
+            <option>UP Board</option>
+            <option>CBSE</option>
+            <option>ICSE</option>
+            <option>Bihar Board</option>
+            <option>Other</option>
+        </select>
+        <input type="text" id="customBoard10" placeholder="Write Board Name" style="display:none;">
+        <input type="text" id="percent10" placeholder="Percentage">
+        <input type="number" id="year10" placeholder="Passing Year">
+        `;
+    }
+    if(this.value=="12th"){
+        html = `
+        <select id="board12">
+            <option value="">Select Board</option>
+            <option>UP Board</option>
+            <option>CBSE</option>
+            <option>ICSE</option>
+            <option>Bihar Board</option>
+            <option>Other</option>
+        </select>
+        <input type="text" id="customBoard12" placeholder="Write Board Name" style="display:none;">
+        <input type="text" id="percent12" placeholder="Percentage">
+        <input type="number" id="year12" placeholder="Passing Year">
+        `;
+    }
+    if(this.value=="graduation"){
+        html = `
+        <input type="text" id="gradCourse" placeholder="Course Name">
+        <select id="gradUniversity">
+            <option value="">Select University</option>
+            <option>CSJM University</option>
+            <option>MGKVP</option>
+            <option>BHU</option>
+            <option>Allahabad University</option>
+            <option>Other</option>
+        </select>
+        <input type="text" id="customUniversity" placeholder="Write University Name" style="display:none;">
+        <input type="text" id="gradPercent" placeholder="Percentage">
+        <input type="number" id="gradYear" placeholder="Passing Year">
+        `;
+    }
+    educationFields.innerHTML = html;
+
+    setTimeout(() => {
+        const board10 = document.getElementById('board10');
+        const board12 = document.getElementById('board12');
+        const gradUniversity = document.getElementById('gradUniversity');
+
+        if(board10){
+            board10.onchange = function(){
+                document.getElementById('customBoard10').style.display = this.value=="Other" ? "block" : "none";
+            };
+        }
+        if(board12){
+            board12.onchange = function(){
+                document.getElementById('customBoard12').style.display = this.value=="Other" ? "block" : "none";
+            };
+        }
+        if(gradUniversity){
+            gradUniversity.onchange = function(){
+                document.getElementById('customUniversity').style.display = this.value=="Other" ? "block" : "none";
+            };
+        }
+    }, 0);
+};
+
+function saveEducation(){
+    let type = eduType.value;
+    if(type=="") return;
+
+    let text = "";
+    if(type=="10th"){
+        let board = document.getElementById('board10').value;
+        if(board=="Other"){ board = document.getElementById('customBoard10').value; }
+        text = `High School from ${board} Passed in ${document.getElementById('year10').value} with ${document.getElementById('percent10').value}%`;
+    }
+    if(type=="12th"){
+        let board = document.getElementById('board12').value;
+        if(board=="Other"){ board = document.getElementById('customBoard12').value; }
+        text = `Intermediate from ${board} Passed in ${document.getElementById('year12').value} with ${document.getElementById('percent12').value}%`;
+    }
+    if(type=="graduation"){
+        let university = document.getElementById('gradUniversity').value;
+        if(university=="Other"){ university = document.getElementById('customUniversity').value; }
+        text = `${document.getElementById('gradCourse').value} from ${university} Passed in ${document.getElementById('gradYear').value} with ${document.getElementById('gradPercent').value}%`;
+    }
+
+    savedEducation.innerHTML += `
+    <div class="saved-box">
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+        <p>${text}</p>
+    </div>
+    `;
+}
+
+function saveOtherQualification(){
+    let course = otherCourse.value;
+    if(course=="other"){ course = customCourse.value; }
+    if(course=="") return;
+
+    savedOther.innerHTML += `
+    <div class="saved-box">
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+        <p>${course} - ${otherInstitute.value} (${otherYear.value})</p>
+    </div>
+    `;
+}
+
+function saveSkill(){
+    let skill = skillSelect.value;
+    if(skill=="other"){ skill = customSkill.value; }
+    if(skill=="") return;
+
+    savedSkills.innerHTML += `
+    <div class="saved-box">
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+        <p><b>${skill}</b></p>
+    </div>
+    `;
+}
+
+function saveExperience(){
+    let exp = experienceSelect.value;
+    if(exp=="other"){ exp = customExperience.value; }
+    if(exp=="") return;
+
+    savedExperience.innerHTML += `
+    <div class="saved-box">
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+        <p><b>${exp}</b></p>
+    </div>
+    `;
+}
+
+function generateResume(){
+    resume.style.display = "block";
+    printBtn.style.display = "block";
+
+    showName.textContent = nameInput.value;
+    showFather.textContent = fatherInput.value;
+    showMother.textContent = motherInput.value;
+    showGender.textContent = genderInput.value;
+    showPhone.textContent = phoneInput.value;
+    showEmail.textContent = emailInput.value;
+    showAddress.textContent = addressInput.value;
+    showSignature.textContent = nameInput.value;
+
+    if(dobInput.value){
+        let p = dobInput.value.split("-");
+        showDob.textContent = p[2]+"/"+p[1]+"/"+p[0];
+    } else {
+        showDob.textContent = "";
+    }
+
+    showCareer.textContent = careerSelect.value=="other" ? customCareer.value : careerSelect.value;
+    showDeclaration.textContent = declarationSelect.value=="other" ? customDeclaration.value : declarationSelect.value;
+
+    let eduLis = "";
+    savedEducation.querySelectorAll(".saved-box p").forEach(function(p){
+        eduLis += `<li>${p.innerText}</li>`;
+    });
+    showEducation.innerHTML = eduLis;
+
+    let otherLis = "";
+    savedOther.querySelectorAll(".saved-box p").forEach(function(p){
+        otherLis += `<li>${p.innerText}</li>`;
+    });
+    showOther.innerHTML = otherLis;
+
+    let expLis = "";
+    savedExperience.querySelectorAll(".saved-box p").forEach(function(p){
+        expLis += `<li>${p.innerText}</li>`;
+    });
+    showExperience.innerHTML = expLis;
+
+    let skillHTML = "";
+    savedSkills.querySelectorAll(".saved-box p").forEach(function(p){
+        skillHTML += `<li>${p.innerText}</li>`;
+    });
+    showSkills.innerHTML = skillHTML;
+
+    let langs = [];
+    document.querySelectorAll(".languageCheck:checked").forEach(function(lang){
+        langs.push(lang.value);
+    });
+    showLanguageText.textContent = langs.join(", ");
+
+    let file = imageInput.files[0];
+    if(file){
+        showImage.style.display = "block";
+        let reader = new FileReader();
+        reader.onload = function(e){
+            showImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        showImage.style.display = "none";
+        showImage.src = "";
+    }
+
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+function printResume(){
+    window.print();
+}
+</script>
+</body>
+</html>
