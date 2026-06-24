@@ -267,8 +267,24 @@ hr{
         <option value="other">Other</option>
     </select>
     <input type="text" id="customCourse" placeholder="Write Course Name" style="display:none;">
-    <input type="text" id="otherInstitute" placeholder="Institute Name">
-    <input type="number" id="otherYear" placeholder="Passing Year">
+
+    <select id="otherInstituteType">
+        <option value="">Select Institute / Board</option>
+        <option>NIELIT</option>
+        <option>NCVT</option>
+        <option>SCVT</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" id="customInstituteType" placeholder="Write Institute / Board Name" style="display:none;">
+
+    <input type="number" id="otherYear" placeholder="Passing / Appearing Year">
+
+    <select id="otherStatus">
+        <option value="">Select Status</option>
+        <option value="Passed">Passed</option>
+        <option value="Appearing">Appearing</option>
+    </select>
+
     <button type="button" class="add-btn" onclick="saveOtherQualification()">+ Add Qualification</button>
     <div id="savedOther"></div>
 
@@ -321,13 +337,13 @@ hr{
     <div class="cv-title">Curriculum Vitae</div>
 
     <div class="header-info">
-        <p><b>Name- </b><span id="showName" class="name-bold"></span></p>
-        <p><b>Address – </b><span id="showAddress"></span></p>
-        <p><b>Mob. No.- </b><span id="showPhone"></span></p>
-        <p><b>Email Id- </b><span id="showEmail"></span></p>
+        <p id="nameRow"><b>Name- </b><span id="showName" class="name-bold"></span></p>
+        <p id="addressRow"><b>Address – </b><span id="showAddress"></span></p>
+        <p id="phoneRow"><b>Mob. No.- </b><span id="showPhone"></span></p>
+        <p id="emailRow"><b>Email Id- </b><span id="showEmail"></span></p>
     </div>
 
-    <hr>
+    <hr id="headerHr">
 
     <div class="section" id="careerSection">
         <div class="title">Career Objective</div>
@@ -354,14 +370,14 @@ hr{
         <ul id="showSkills"></ul>
     </div>
 
-    <div class="section">
+    <div class="section" id="personalSection">
         <div class="title">Personal Details</div>
-        <table class="personal-table">
-            <tr><td><b>Father’s Name</b></td><td>:</td><td id="showFather"></td></tr>
-            <tr><td><b>Mother’s Name</b></td><td>:</td><td id="showMother"></td></tr>
-            <tr><td><b>Date of Birth</b></td><td>:</td><td id="showDob"></td></tr>
-            <tr><td><b>Gender</b></td><td>:</td><td id="showGender"></td></tr>
-            <tr><td><b>Languages Known</b></td><td>:</td><td id="showLanguageText"></td></tr>
+        <table class="personal-table" id="personalTable">
+            <tr id="fatherRow"><td><b>Father’s Name</b></td><td>:</td><td id="showFather"></td></tr>
+            <tr id="motherRow"><td><b>Mother’s Name</b></td><td>:</td><td id="showMother"></td></tr>
+            <tr id="dobRow"><td><b>Date of Birth</b></td><td>:</td><td id="showDob"></td></tr>
+            <tr id="genderRow"><td><b>Gender</b></td><td>:</td><td id="showGender"></td></tr>
+            <tr id="languageRow"><td><b>Languages Known</b></td><td>:</td><td id="showLanguageText"></td></tr>
         </table>
     </div>
 
@@ -393,14 +409,16 @@ const experienceSelect = document.getElementById('experienceSelect');
 const customExperience = document.getElementById('customExperience');
 const otherCourse = document.getElementById('otherCourse');
 const customCourse = document.getElementById('customCourse');
+const otherInstituteType = document.getElementById('otherInstituteType');
+const customInstituteType = document.getElementById('customInstituteType');
+const otherYear = document.getElementById('otherYear');
+const otherStatus = document.getElementById('otherStatus');
 const declarationSelect = document.getElementById('declarationSelect');
 const customDeclaration = document.getElementById('customDeclaration');
 const eduType = document.getElementById('eduType');
 const educationFields = document.getElementById('educationFields');
 const savedEducation = document.getElementById('savedEducation');
 const savedOther = document.getElementById('savedOther');
-const otherInstitute = document.getElementById('otherInstitute');
-const otherYear = document.getElementById('otherYear');
 const savedSkills = document.getElementById('savedSkills');
 const savedExperience = document.getElementById('savedExperience');
 const resume = document.getElementById('resume');
@@ -437,6 +455,9 @@ experienceSelect.onchange = function(){
 otherCourse.onchange = function(){
     customCourse.style.display = this.value=="other" ? "block" : "none";
 };
+otherInstituteType.onchange = function(){
+    customInstituteType.style.display = this.value=="other" ? "block" : "none";
+};
 declarationSelect.onchange = function(){
     customDeclaration.style.display = this.value=="other" ? "block" : "none";
 };
@@ -454,8 +475,13 @@ eduType.onchange = function(){
             <option>Other</option>
         </select>
         <input type="text" id="customBoard10" placeholder="Write Board Name" style="display:none;">
+        <select id="status10">
+            <option value="">Select Status</option>
+            <option value="Passed">Passed</option>
+            <option value="Appearing">Appearing</option>
+        </select>
         <input type="text" id="percent10" placeholder="Percentage">
-        <input type="number" id="year10" placeholder="Passing Year">
+        <input type="number" id="year10" placeholder="Year">
         `;
     }
     if(this.value=="12th"){
@@ -469,8 +495,13 @@ eduType.onchange = function(){
             <option>Other</option>
         </select>
         <input type="text" id="customBoard12" placeholder="Write Board Name" style="display:none;">
+        <select id="status12">
+            <option value="">Select Status</option>
+            <option value="Passed">Passed</option>
+            <option value="Appearing">Appearing</option>
+        </select>
         <input type="text" id="percent12" placeholder="Percentage">
-        <input type="number" id="year12" placeholder="Passing Year">
+        <input type="number" id="year12" placeholder="Year">
         `;
     }
     if(this.value=="graduation"){
@@ -485,8 +516,13 @@ eduType.onchange = function(){
             <option>Other</option>
         </select>
         <input type="text" id="customUniversity" placeholder="Write University Name" style="display:none;">
-        <input type="text" id="gradPercent" placeholder="Percentage">
-        <input type="number" id="gradYear" placeholder="Passing Year">
+        <select id="gradStatus">
+            <option value="">Select Status</option>
+            <option value="Passed">Passed</option>
+            <option value="Appearing">Appearing</option>
+        </select>
+        <input type="text" id="gradPercent" placeholder="Percentage (Optional for Appearing)">
+        <input type="number" id="gradYear" placeholder="Year">
         `;
     }
     educationFields.innerHTML = html;
@@ -519,21 +555,60 @@ function saveEducation(){
     if(type=="") return;
 
     let text = "";
+
     if(type=="10th"){
         let board = document.getElementById('board10').value;
-        if(board=="Other"){ board = document.getElementById('customBoard10').value; }
-        text = `High School from ${board} Passed in ${document.getElementById('year10').value} with ${document.getElementById('percent10').value}%`;
+        let status = document.getElementById('status10').value;
+        let percent = document.getElementById('percent10').value.trim();
+        let year = document.getElementById('year10').value.trim();
+
+        if(board=="Other"){ board = document.getElementById('customBoard10').value.trim(); }
+        if(!board || !status || !year) return;
+
+        if(status=="Passed"){
+            if(!percent) return;
+            text = `High School from ${board} passed in ${year} with ${percent}%`;
+        }else{
+            text = `High School from ${board} Appearing in ${year}`;
+        }
     }
+
     if(type=="12th"){
         let board = document.getElementById('board12').value;
-        if(board=="Other"){ board = document.getElementById('customBoard12').value; }
-        text = `Intermediate from ${board} Passed in ${document.getElementById('year12').value} with ${document.getElementById('percent12').value}%`;
+        let status = document.getElementById('status12').value;
+        let percent = document.getElementById('percent12').value.trim();
+        let year = document.getElementById('year12').value.trim();
+
+        if(board=="Other"){ board = document.getElementById('customBoard12').value.trim(); }
+        if(!board || !status || !year) return;
+
+        if(status=="Passed"){
+            if(!percent) return;
+            text = `Intermediate from ${board} passed in ${year} with ${percent}%`;
+        }else{
+            text = `Intermediate from ${board} Appearing in ${year}`;
+        }
     }
+
     if(type=="graduation"){
+        let course = document.getElementById('gradCourse').value.trim();
         let university = document.getElementById('gradUniversity').value;
-        if(university=="Other"){ university = document.getElementById('customUniversity').value; }
-        text = `${document.getElementById('gradCourse').value} from ${university} Passed in ${document.getElementById('gradYear').value} with ${document.getElementById('gradPercent').value}%`;
+        let status = document.getElementById('gradStatus').value;
+        let percent = document.getElementById('gradPercent').value.trim();
+        let year = document.getElementById('gradYear').value.trim();
+
+        if(university=="Other"){ university = document.getElementById('customUniversity').value.trim(); }
+        if(!course || !university || !status || !year) return;
+
+        if(status=="Passed"){
+            if(!percent) return;
+            text = `${course} from ${university} passed in ${year} with ${percent}%`;
+        }else{
+            text = `${course} from ${university} Appearing in ${year}`;
+        }
     }
+
+    if(text==="") return;
 
     savedEducation.innerHTML += `
     <div class="saved-box">
@@ -545,20 +620,33 @@ function saveEducation(){
 
 function saveOtherQualification(){
     let course = otherCourse.value;
-    if(course=="other"){ course = customCourse.value; }
-    if(course=="") return;
+    let institute = otherInstituteType.value;
+    let year = otherYear.value.trim();
+    let status = otherStatus.value;
+
+    if(course=="other"){ course = customCourse.value.trim(); }
+    if(institute=="other"){ institute = customInstituteType.value.trim(); }
+
+    if(!course || !institute || !year || !status) return;
+
+    let text = "";
+    if(status=="Passed"){
+        text = `${course} from ${institute} passed in ${year}`;
+    }else{
+        text = `${course} from ${institute} Appearing in ${year}`;
+    }
 
     savedOther.innerHTML += `
     <div class="saved-box">
         <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
-        <p>${course} - ${otherInstitute.value} (${otherYear.value})</p>
+        <p>${text}</p>
     </div>
     `;
 }
 
 function saveSkill(){
     let skill = skillSelect.value;
-    if(skill=="other"){ skill = customSkill.value; }
+    if(skill=="other"){ skill = customSkill.value.trim(); }
     if(skill=="") return;
 
     savedSkills.innerHTML += `
@@ -571,7 +659,7 @@ function saveSkill(){
 
 function saveExperience(){
     let exp = experienceSelect.value;
-    if(exp=="other"){ exp = customExperience.value; }
+    if(exp=="other"){ exp = customExperience.value.trim(); }
     if(exp=="") return;
 
     savedExperience.innerHTML += `
@@ -582,58 +670,130 @@ function saveExperience(){
     `;
 }
 
+function toggleSection(element, show){
+    element.style.display = show ? "block" : "none";
+}
+
+function toggleHeaderRow(element, show){
+    element.style.display = show ? "block" : "none";
+}
+
+function toggleRow(element, show){
+    element.style.display = show ? "table-row" : "none";
+}
+
 function generateResume(){
+    const nameVal = nameInput.value.trim();
+    const fatherVal = fatherInput.value.trim();
+    const motherVal = motherInput.value.trim();
+    const genderVal = genderInput.value.trim();
+    const phoneVal = phoneInput.value.trim();
+    const emailVal = emailInput.value.trim();
+    const addressVal = addressInput.value.trim();
+
+    if(nameVal === ""){
+        alert("Please enter your name");
+        return;
+    }
+
     resume.style.display = "block";
     printBtn.style.display = "block";
 
-    showName.textContent = nameInput.value;
-    showFather.textContent = fatherInput.value;
-    showMother.textContent = motherInput.value;
-    showGender.textContent = genderInput.value;
-    showPhone.textContent = phoneInput.value;
-    showEmail.textContent = emailInput.value;
-    showAddress.textContent = addressInput.value;
-    showSignature.textContent = nameInput.value;
+    showName.textContent = nameVal;
+    showFather.textContent = fatherVal;
+    showMother.textContent = motherVal;
+    showGender.textContent = genderVal;
+    showPhone.textContent = phoneVal;
+    showEmail.textContent = emailVal;
+    showAddress.textContent = addressVal;
+    showSignature.textContent = nameVal;
 
     if(dobInput.value){
         let p = dobInput.value.split("-");
-        showDob.textContent = p[2]+"/"+p[1]+"/"+p[0];
+        showDob.textContent = p[2] + "/" + p[1] + "/" + p[0];
     } else {
         showDob.textContent = "";
     }
 
-    showCareer.textContent = careerSelect.value=="other" ? customCareer.value : careerSelect.value;
-    showDeclaration.textContent = declarationSelect.value=="other" ? customDeclaration.value : declarationSelect.value;
+    const careerVal = careerSelect.value=="other" ? customCareer.value.trim() : careerSelect.value.trim();
+    const declarationVal = declarationSelect.value=="other" ? customDeclaration.value.trim() : declarationSelect.value.trim();
+
+    showCareer.textContent = careerVal;
+    showDeclaration.textContent = declarationVal;
 
     let eduLis = "";
     savedEducation.querySelectorAll(".saved-box p").forEach(function(p){
-        eduLis += `<li>${p.innerText}</li>`;
+        if(p.textContent.trim() !== ""){
+            eduLis += `<li>${p.textContent}</li>`;
+        }
     });
     showEducation.innerHTML = eduLis;
 
     let otherLis = "";
     savedOther.querySelectorAll(".saved-box p").forEach(function(p){
-        otherLis += `<li>${p.innerText}</li>`;
+        if(p.textContent.trim() !== ""){
+            otherLis += `<li>${p.textContent}</li>`;
+        }
     });
     showOther.innerHTML = otherLis;
 
     let expLis = "";
     savedExperience.querySelectorAll(".saved-box p").forEach(function(p){
-        expLis += `<li>${p.innerText}</li>`;
+        if(p.textContent.trim() !== ""){
+            expLis += `<li>${p.textContent}</li>`;
+        }
     });
     showExperience.innerHTML = expLis;
 
-    let skillHTML = "";
+    let skillLis = "";
     savedSkills.querySelectorAll(".saved-box p").forEach(function(p){
-        skillHTML += `<li>${p.innerText}</li>`;
+        if(p.textContent.trim() !== ""){
+            skillLis += `<li>${p.textContent}</li>`;
+        }
     });
-    showSkills.innerHTML = skillHTML;
+    showSkills.innerHTML = skillLis;
 
     let langs = [];
     document.querySelectorAll(".languageCheck:checked").forEach(function(lang){
         langs.push(lang.value);
     });
     showLanguageText.textContent = langs.join(", ");
+
+    toggleHeaderRow(document.getElementById("nameRow"), nameVal !== "");
+    toggleHeaderRow(document.getElementById("addressRow"), addressVal !== "");
+    toggleHeaderRow(document.getElementById("phoneRow"), phoneVal !== "");
+    toggleHeaderRow(document.getElementById("emailRow"), emailVal !== "");
+
+    toggleSection(document.getElementById("careerSection"), careerVal !== "");
+    toggleSection(document.getElementById("educationSection"), eduLis !== "");
+    toggleSection(document.getElementById("otherSection"), otherLis !== "");
+    toggleSection(document.getElementById("experienceSection"), expLis !== "");
+    toggleSection(document.getElementById("skillSection"), skillLis !== "");
+    toggleSection(document.getElementById("declarationSection"), declarationVal !== "");
+
+    toggleRow(document.getElementById("fatherRow"), fatherVal !== "");
+    toggleRow(document.getElementById("motherRow"), motherVal !== "");
+    toggleRow(document.getElementById("dobRow"), showDob.textContent.trim() !== "");
+    toggleRow(document.getElementById("genderRow"), genderVal !== "");
+    toggleRow(document.getElementById("languageRow"), langs.length > 0);
+
+    const personalVisible =
+        fatherVal !== "" ||
+        motherVal !== "" ||
+        showDob.textContent.trim() !== "" ||
+        genderVal !== "" ||
+        langs.length > 0;
+
+    toggleSection(document.getElementById("personalSection"), personalVisible);
+
+    const headerVisible =
+        nameVal !== "" ||
+        addressVal !== "" ||
+        phoneVal !== "" ||
+        emailVal !== "";
+
+    document.querySelector(".header-info").style.display = headerVisible ? "block" : "none";
+    document.getElementById("headerHr").style.display = headerVisible ? "block" : "none";
 
     let file = imageInput.files[0];
     if(file){
