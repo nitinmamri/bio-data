@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📃Simple Resume Builder</title>
@@ -35,6 +33,11 @@ h3{
     margin-top:18px;
     margin-bottom:6px;
     font-size:20px;
+}
+label{
+    display:block;
+    margin-top:8px;
+    font-weight:bold;
 }
 input, textarea, select{
     width:100%;
@@ -72,6 +75,7 @@ button{
     display:block;
     margin-top:6px;
     font-size:16px;
+    font-weight:normal;
 }
 .multi-select-box input{
     width:auto;
@@ -104,6 +108,21 @@ button{
     padding:10mm;
     border:4px double #000;
     display:none;
+    overflow:hidden;
+}
+.fixed-title-wrap{
+    position:sticky;
+    top:0;
+    background:white;
+    z-index:20;
+    padding-top:2mm;
+    padding-bottom:3mm;
+}
+.resume-move-area{
+    position:relative;
+    transition:transform 0.12s ease;
+    transform:translateY(0px);
+    will-change: transform;
 }
 .cv-title{
     text-align:center;
@@ -179,6 +198,35 @@ hr{
 .signature-bold{
     font-weight:600;
 }
+
+body.font-small .cv-title{ font-size:20px; }
+body.font-small .title,
+body.font-small .section p,
+body.font-small .section li,
+body.font-small .header-info,
+body.font-small .personal-table td,
+body.font-small .signature{
+    font-size:13px;
+}
+body.font-medium .cv-title{ font-size:24px; }
+body.font-medium .title,
+body.font-medium .section p,
+body.font-medium .section li,
+body.font-medium .header-info,
+body.font-medium .personal-table td,
+body.font-medium .signature{
+    font-size:15px;
+}
+body.font-large .cv-title{ font-size:28px; }
+body.font-large .title,
+body.font-large .section p,
+body.font-large .section li,
+body.font-large .header-info,
+body.font-large .personal-table td,
+body.font-large .signature{
+    font-size:18px;
+}
+
 @page{
     size:A4;
     margin:5mm;
@@ -203,7 +251,7 @@ hr{
 }
 </style>
 </head>
-<body>
+<body class="font-medium">
 
 <div class="form-container">
     <h2>Simple Resume Builder</h2>
@@ -237,85 +285,26 @@ hr{
     <h3>Career Objective</h3>
     <select id="careerSelect">
         <option value="">Select Career Objective</option>
-        <option>
-To work in a responsible position where I can utilize my commerce knowledge, accounting skills, computer proficiency, and communication abilities for the growth of the organization while continuously improving my professional skills.
-</option>
-
-<option>
-Seeking a responsible career opportunity to fully utilize my training and skills while making a significant contribution to the success of the company.
-</option>
-
-<option>
-To work in a professional environment that encourages continuous learning, innovation, and career growth.
-</option>
-
-<option>
-A highly motivated individual seeking a position where I can contribute effectively and grow professionally through dedication and hard work.
-</option>
-
-<option>
-To be associated with an organization that provides opportunities to enhance my abilities and achieve professional excellence.
-</option>
-
-<option>
-Seeking a position in a dynamic organization where I can apply my technical and interpersonal skills to achieve organizational objectives.
-</option>
-
-<option>
-To secure a professional position that offers challenges, growth opportunities, and a chance to contribute positively to the organization.
-</option>
-
-<option>
-Looking for a growth-oriented career in a reputed organization where I can improve my knowledge and deliver quality performance.
-</option>
-
-<option>
-To work with a progressive organization that provides opportunities to enhance my professional and technical skills.
-</option>
-
-<option>
-Seeking an opportunity to work in a competitive and professional environment where I can contribute to organizational success.
-</option>
-
-<option>
-To build a successful career by working in a challenging environment that encourages creativity, teamwork, and professional development.
-</option>
-
-<option>
-Aiming to achieve a challenging position in an organization where I can utilize my potential and contribute to long-term growth.
-</option>
-
-<option>
-To pursue a challenging career in a reputable organization that offers opportunities for learning and advancement.
-</option>
-
-<option>
-Seeking a position where I can effectively apply my analytical, communication, and problem-solving skills for organizational benefit.
-</option>
-
-<option>
-To contribute my best abilities and dedication towards achieving company goals while continuously improving my professional skills.
-</option>
-
-<option>
-Looking for an opportunity to work in an innovative and growth-driven organization that values dedication and performance.
-</option>
-
-<option>
-To work in a professionally managed organization where I can utilize my abilities efficiently and contribute to overall success.
-</option>
-
-<option>
-Seeking a rewarding career opportunity that allows me to learn, grow, and contribute effectively to the organization.
-</option>
-
-<option>
-To obtain a position that enables me to apply my knowledge and skills while gaining valuable professional experience.
-</option>
-
-<option>
-Dedicated and hardworking individual seeking a position to contribute positively and achieve organizational excellence.
-</option>
+        <option>To work in a responsible position where I can utilize my commerce knowledge, accounting skills, computer proficiency, and communication abilities for the growth of the organization while continuously improving my professional skills.</option>
+        <option>Seeking a responsible career opportunity to fully utilize my training and skills while making a significant contribution to the success of the company.</option>
+        <option>To work in a professional environment that encourages continuous learning, innovation, and career growth.</option>
+        <option>A highly motivated individual seeking a position where I can contribute effectively and grow professionally through dedication and hard work.</option>
+        <option>To be associated with an organization that provides opportunities to enhance my abilities and achieve professional excellence.</option>
+        <option>Seeking a position in a dynamic organization where I can apply my technical and interpersonal skills to achieve organizational objectives.</option>
+        <option>To secure a professional position that offers challenges, growth opportunities, and a chance to contribute positively to the organization.</option>
+        <option>Looking for a growth-oriented career in a reputed organization where I can improve my knowledge and deliver quality performance.</option>
+        <option>To work with a progressive organization that provides opportunities to enhance my professional and technical skills.</option>
+        <option>Seeking an opportunity to work in a competitive and professional environment where I can contribute to organizational success.</option>
+        <option>To build a successful career by working in a challenging environment that encourages creativity, teamwork, and professional development.</option>
+        <option>Aiming to achieve a challenging position in an organization where I can utilize my potential and contribute to long-term growth.</option>
+        <option>To pursue a challenging career in a reputable organization that offers opportunities for learning and advancement.</option>
+        <option>Seeking a position where I can effectively apply my analytical, communication, and problem-solving skills for organizational benefit.</option>
+        <option>To contribute my best abilities and dedication towards achieving company goals while continuously improving my professional skills.</option>
+        <option>Looking for an opportunity to work in an innovative and growth-driven organization that values dedication and performance.</option>
+        <option>To work in a professionally managed organization where I can utilize my abilities efficiently and contribute to overall success.</option>
+        <option>Seeking a rewarding career opportunity that allows me to learn, grow, and contribute effectively to the organization.</option>
+        <option>To obtain a position that enables me to apply my knowledge and skills while gaining valuable professional experience.</option>
+        <option>Dedicated and hardworking individual seeking a position to contribute positively and achieve organizational excellence.</option>
     </select>
     <textarea id="customCareer" placeholder="Write Your Career Objective" style="display:none;"></textarea>
 
@@ -326,10 +315,28 @@ Dedicated and hardworking individual seeking a position to contribute positively
         <option value="12th">12th</option>
         <option value="graduation">Graduation / Other</option>
     </select>
-    <div id="educationFields"></div>
-
+    <div id="educationFields">
+        <select id="board10">
+            <option value="">Select Board</option>
+            <option>UP Board</option>
+            <option>CBSE</option>
+            <option>ICSE</option>
+            <option>Bihar Board</option>
+            <option>Other</option>
+        </select>
+        <input type="text" id="customBoard10" placeholder="Write Board Name" style="display:none;">
+        <select id="status10">
+            <option value="">Select Status</option>
+            <option value="Passed">Passed</option>
+            <option value="Appearing">Appearing</option>
+        </select>
+        <input type="text" id="percent10" placeholder="Percentage">
+        <input type="number" id="year10" placeholder="Year">
+        </div>
     <button type="button" class="add-btn" onclick="saveEducation()">+ Add Education</button>
-    <div id="savedEducation"></div>
+    <div id="savedEducation">
+    
+    </div>
 
     <h3>Other Qualification</h3>
     <select id="otherCourse">
@@ -359,9 +366,9 @@ Dedicated and hardworking individual seeking a position to contribute positively
         <option value="Passed">Passed</option>
         <option value="Appearing">Appearing</option>
     </select>
-
     <button type="button" class="add-btn" onclick="saveOtherQualification()">+ Add Qualification</button>
-    <div id="savedOther"></div>
+    <div id="savedOther">
+    </div>
 
     <h3>Skills</h3>
     <select id="skillSelect">
@@ -375,7 +382,8 @@ Dedicated and hardworking individual seeking a position to contribute positively
     </select>
     <input type="text" id="customSkill" placeholder="Write Skill" style="display:none;">
     <button type="button" class="add-btn" onclick="saveSkill()">+ Add Skill</button>
-    <div id="savedSkills"></div>
+    <div id="savedSkills">
+    </div>
 
     <h3>Experience</h3>
     <select id="experienceSelect">
@@ -388,7 +396,8 @@ Dedicated and hardworking individual seeking a position to contribute positively
     </select>
     <input type="text" id="customExperience" placeholder="Write Experience" style="display:none;">
     <button type="button" class="add-btn" onclick="saveExperience()">+ Add Experience</button>
-    <div id="savedExperience"></div>
+    <div id="savedExperience">
+    </div>
 
     <h3>Declaration</h3>
     <select id="declarationSelect">
@@ -403,66 +412,77 @@ Dedicated and hardworking individual seeking a position to contribute positively
     <input type="file" id="image" accept="image/*">
 
     <button id="generateBtn" onclick="generateResume()">Generate Resume</button>
-    <button id="printBtn" onclick="printResume()" style="display:none;">Print Resume</button>
+    <button id="printBtn" onclick="printResume()" style="display: block;">Print Resume</button>
+
+    <h3>Controls</h3>
+    <label for="fontSizeSlider">Heading / Text Size</label>
+    <input type="range" id="fontSizeSlider" min="1" max="100" value="15">
+
+    <label for="moveSlider">Resume Up-Down Position</label>
+    <input type="range" id="moveSlider" min="0" max="200" value="0">
 </div>
 
-<div class="resume" id="resume">
-    <img id="showImage" class="profile" alt="profile">
-
-    <div class="cv-title">Curriculum Vitae</div>
-
-    <div class="header-info">
-        <p id="nameRow"><b>Name- </b><span id="showName" class="name-bold"></span></p>
-        <p id="addressRow"><b>Address – </b><span id="showAddress"></span></p>
-        <p id="phoneRow"><b>Mob. No.- </b><span id="showPhone"></span></p>
-        <p id="emailRow"><b>Email Id- </b><span id="showEmail"></span></p>
+<div class="resume" id="resume" style="display: block;">
+    <div class="fixed-title-wrap">
+        <div class="cv-title">Curriculum Vitae</div>
     </div>
 
-    <hr id="headerHr">
+    <div class="resume-move-area" id="resumeMoveArea" style="transform: translateY(0px);">
+        <img id="showImage" class="profile" alt="profile" src="" style="display: none;">
 
-    <div class="section" id="careerSection">
-        <div class="title">Career Objective</div>
-        <p id="showCareer"></p>
-    </div>
+        <div class="header-info" style="display: block;">
+            <p id="nameRow" style="display: block;"><b>Name- </b><span id="showName" class="name-bold"></span></p>
+            <p id="addressRow" style="display: none;"><b>Address – </b><span id="showAddress"></span></p>
+            <p id="phoneRow" style="display: none;"><b>Mob. No.- </b><span id="showPhone"></span></p>
+            <p id="emailRow" style="display: none;"><b>Email Id- </b><span id="showEmail"></span></p>
+        </div>
 
-    <div class="section" id="educationSection">
-        <div class="title">Educational Qualifications</div>
-        <ul id="showEducation"></ul>
-    </div>
+        <hr id="headerHr" style="display: block;">
 
-    <div class="section" id="otherSection">
-        <div class="title">Other Qualifications</div>
-        <ul id="showOther"></ul>
-    </div>
+        <div class="section" id="careerSection" style="display: none;">
+            <div class="title">Career Objective</div>
+            <p id="showCareer"></p>
+        </div>
 
-    <div class="section" id="experienceSection">
-        <div class="title">Experience</div>
-        <ul id="showExperience"></ul>
-    </div>
+        <div class="section" id="educationSection" style="display: none;">
+            <div class="title">Educational Qualifications</div>
+            <ul id="showEducation"></ul>
+        </div>
 
-    <div class="section" id="skillSection">
-        <div class="title">Skill</div>
-        <ul id="showSkills"></ul>
-    </div>
+        <div class="section" id="otherSection" style="display: none;">
+            <div class="title">Other Qualifications</div>
+            <ul id="showOther"></ul>
+        </div>
 
-    <div class="section" id="personalSection">
-        <div class="title">Personal Details</div>
-        <table class="personal-table" id="personalTable">
-            <tr id="fatherRow"><td><b>Father’s Name</b></td><td>:</td><td id="showFather"></td></tr>
-            <tr id="motherRow"><td><b>Mother’s Name</b></td><td>:</td><td id="showMother"></td></tr>
-            <tr id="dobRow"><td><b>Date of Birth</b></td><td>:</td><td id="showDob"></td></tr>
-            <tr id="genderRow"><td><b>Gender</b></td><td>:</td><td id="showGender"></td></tr>
-            <tr id="languageRow"><td><b>Languages Known</b></td><td>:</td><td id="showLanguageText"></td></tr>
-        </table>
-    </div>
+        <div class="section" id="experienceSection" style="display: none;">
+            <div class="title">Experience</div>
+            <ul id="showExperience"></ul>
+        </div>
 
-    <div class="section" id="declarationSection">
-        <div class="title">Declaration</div>
-        <p id="showDeclaration"></p>
+        <div class="section" id="skillSection" style="display: none;">
+            <div class="title">Skill</div>
+            <ul id="showSkills"></ul>
+        </div>
 
-        <div class="signature">
-            <div>Date : __________</div>
-            <div><span id="showSignature" class="signature-bold"></span></div>
+        <div class="section" id="personalSection" style="display: none;">
+            <div class="title">Personal Details</div>
+            <table class="personal-table" id="personalTable">
+                <tbody><tr id="fatherRow" style="display: none;"><td><b>Father’s Name</b></td><td>:</td><td id="showFather"></td></tr>
+                <tr id="motherRow" style="display: none;"><td><b>Mother’s Name</b></td><td>:</td><td id="showMother"></td></tr>
+                <tr id="dobRow" style="display: none;"><td><b>Date of Birth</b></td><td>:</td><td id="showDob"></td></tr>
+                <tr id="genderRow" style="display: none;"><td><b>Gender</b></td><td>:</td><td id="showGender"></td></tr>
+                <tr id="languageRow" style="display: none;"><td><b>Languages Known</b></td><td>:</td><td id="showLanguageText"></td></tr>
+            </tbody></table>
+        </div>
+
+        <div class="section" id="declarationSection" style="display: none;">
+            <div class="title">Declaration</div>
+            <p id="showDeclaration"></p>
+
+            <div class="signature">
+                <div>Date : __________</div>
+                <div><span id="showSignature" class="signature-bold"></span></div>
+            </div>
         </div>
     </div>
 </div>
@@ -499,6 +519,9 @@ const savedExperience = document.getElementById('savedExperience');
 const resume = document.getElementById('resume');
 const printBtn = document.getElementById('printBtn');
 const imageInput = document.getElementById('image');
+const fontSizeSlider = document.getElementById('fontSizeSlider');
+const moveSlider = document.getElementById('moveSlider');
+const resumeMoveArea = document.getElementById('resumeMoveArea');
 
 const showName = document.getElementById('showName');
 const showFather = document.getElementById('showFather');
@@ -517,6 +540,35 @@ const showExperience = document.getElementById('showExperience');
 const showSkills = document.getElementById('showSkills');
 const showLanguageText = document.getElementById('showLanguageText');
 const showImage = document.getElementById('showImage');
+
+let currentMove = 0;
+
+function applyFontSize(size){
+    document.body.classList.remove('font-small','font-medium','font-large');
+    if(size <= 14){
+        document.body.classList.add('font-small');
+    }else if(size <= 18){
+        document.body.classList.add('font-medium');
+    }else{
+        document.body.classList.add('font-large');
+    }
+}
+
+function applyResumeMove(){
+    currentMove = parseInt(moveSlider.value) || 0;
+    resumeMoveArea.style.transform = `translateY(${currentMove}px)`;
+}
+
+fontSizeSlider.addEventListener('input', function(){
+    applyFontSize(parseInt(this.value));
+});
+
+moveSlider.addEventListener('input', function(){
+    applyResumeMove();
+});
+
+applyFontSize(parseInt(fontSizeSlider.value));
+applyResumeMove();
 
 careerSelect.onchange = function(){
     customCareer.style.display = this.value=="other" ? "block" : "none";
@@ -586,7 +638,7 @@ eduType.onchange = function(){
             <option value="">Select University</option>
             <option>Lucknow University</option>
             <option>CSJM University</option>
-            <option>MJPRUP</option>
+            <option>MJPRU</option>
             <option>BHU</option>
             <option>Allahabad University</option>
             <option>Other</option>
@@ -629,7 +681,6 @@ eduType.onchange = function(){
 function saveEducation(){
     let type = eduType.value;
     if(type=="") return;
-
     let text = "";
 
     if(type=="10th"){
@@ -690,8 +741,7 @@ function saveEducation(){
     <div class="saved-box">
         <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
         <p>${text}</p>
-    </div>
-    `;
+    </div>`;
 }
 
 function saveOtherQualification(){
@@ -705,55 +755,42 @@ function saveOtherQualification(){
 
     if(!course || !institute || !year || !status) return;
 
-    let text = "";
-    if(status=="Passed"){
-        text = `${course} from ${institute} passed in ${year}`;
-    }else{
-        text = `${course} from ${institute} Appearing in ${year}`;
-    }
-
+    let text = status=="Passed" ? `${course} from ${institute} passed in ${year}` : `${course} from ${institute} Appearing in ${year}`;
     savedOther.innerHTML += `
     <div class="saved-box">
         <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
         <p>${text}</p>
-    </div>
-    `;
+    </div>`;
 }
 
 function saveSkill(){
     let skill = skillSelect.value;
     if(skill=="other"){ skill = customSkill.value.trim(); }
     if(skill=="") return;
-
     savedSkills.innerHTML += `
     <div class="saved-box">
         <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
         <p><b>${skill}</b></p>
-    </div>
-    `;
+    </div>`;
 }
 
 function saveExperience(){
     let exp = experienceSelect.value;
     if(exp=="other"){ exp = customExperience.value.trim(); }
     if(exp=="") return;
-
     savedExperience.innerHTML += `
     <div class="saved-box">
         <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
         <p><b>${exp}</b></p>
-    </div>
-    `;
+    </div>`;
 }
 
 function toggleSection(element, show){
     element.style.display = show ? "block" : "none";
 }
-
 function toggleHeaderRow(element, show){
     element.style.display = show ? "block" : "none";
 }
-
 function toggleRow(element, show){
     element.style.display = show ? "table-row" : "none";
 }
@@ -798,41 +835,31 @@ function generateResume(){
     showDeclaration.textContent = declarationVal;
 
     let eduLis = "";
-    savedEducation.querySelectorAll(".saved-box p").forEach(function(p){
-        if(p.textContent.trim() !== ""){
-            eduLis += `<li>${p.textContent}</li>`;
-        }
+    savedEducation.querySelectorAll(".saved-box p").forEach(p => {
+        if(p.textContent.trim() !== "") eduLis += `<li>${p.textContent}</li>`;
     });
     showEducation.innerHTML = eduLis;
 
     let otherLis = "";
-    savedOther.querySelectorAll(".saved-box p").forEach(function(p){
-        if(p.textContent.trim() !== ""){
-            otherLis += `<li>${p.textContent}</li>`;
-        }
+    savedOther.querySelectorAll(".saved-box p").forEach(p => {
+        if(p.textContent.trim() !== "") otherLis += `<li>${p.textContent}</li>`;
     });
     showOther.innerHTML = otherLis;
 
     let expLis = "";
-    savedExperience.querySelectorAll(".saved-box p").forEach(function(p){
-        if(p.textContent.trim() !== ""){
-            expLis += `<li>${p.textContent}</li>`;
-        }
+    savedExperience.querySelectorAll(".saved-box p").forEach(p => {
+        if(p.textContent.trim() !== "") expLis += `<li>${p.textContent}</li>`;
     });
     showExperience.innerHTML = expLis;
 
     let skillLis = "";
-    savedSkills.querySelectorAll(".saved-box p").forEach(function(p){
-        if(p.textContent.trim() !== ""){
-            skillLis += `<li>${p.textContent}</li>`;
-        }
+    savedSkills.querySelectorAll(".saved-box p").forEach(p => {
+        if(p.textContent.trim() !== "") skillLis += `<li>${p.textContent}</li>`;
     });
     showSkills.innerHTML = skillLis;
 
     let langs = [];
-    document.querySelectorAll(".languageCheck:checked").forEach(function(lang){
-        langs.push(lang.value);
-    });
+    document.querySelectorAll(".languageCheck:checked").forEach(lang => langs.push(lang.value));
     showLanguageText.textContent = langs.join(", ");
 
     toggleHeaderRow(document.getElementById("nameRow"), nameVal !== "");
@@ -884,12 +911,24 @@ function generateResume(){
         showImage.src = "";
     }
 
+    applyResumeMove();
     window.scrollTo(0, document.body.scrollHeight);
 }
 
 function printResume(){
-    window.print();
+    applyResumeMove();
+    setTimeout(() => {
+        window.print();
+    }, 100);
 }
+
+window.addEventListener("beforeprint", function(){
+    applyResumeMove();
+});
+
+window.addEventListener("afterprint", function(){
+    applyResumeMove();
+});
 </script>
-</body>
-</html>
+
+</body></html>
